@@ -1,0 +1,37 @@
+# Loopback device:
+auto lo
+iface lo inet loopback
+iface lo inet6 loopback
+
+# device: eth0
+auto  eth0
+iface eth0 inet static
+  address	176.9.99.98
+  netmask	255.255.255.255
+  gateway	176.9.99.97
+  pointopoint	176.9.99.97
+
+iface eth0 inet6 static
+  address 2a01:4f8:151:4165::2
+  netmask 128
+  gateway fe80::1
+
+# VM-Bridge
+auto  br0
+iface br0 inet static
+  address	176.9.99.98
+  netmask	255.255.255.255
+  bridge_stp off
+  bridge_ports none
+  bridge_fd 0
+  bridge_maxwait 0
+
+# Add all single IP's from a second /29 subnet
+#  up route add -host 56.23.34.56 dev br0
+#  up route add -host 56.23.34.57 dev br0
+
+
+iface br0 inet6 static
+  address 2a01:4f8:151:4165::2
+  netmask 64
+
